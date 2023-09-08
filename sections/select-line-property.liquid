@@ -1,0 +1,62 @@
+<script>
+  const dom = `
+  <div class="{{section.id}}__select-line-property">
+    <p class="line-item-property__field">
+      <h3>Line properties test</h3>
+      <label>{{ section.settings.lable_title }}</label><br>
+      <select id="bean-type" name="properties[bean type]">
+        {% for block in section.blocks %}
+          <option value="{{ block.settings.select_text }}">{{ block.settings.select_text }}</option>
+        {% endfor %}
+      </select>
+    </p>
+  </div>
+  `;
+  window.addEventListener('load', function() {
+    const form = document.querySelector('form[action="/cart/add"][data-type="add-to-cart-form"]');
+    form.insertAdjacentHTML('afterbegin', dom);
+  });
+</script>
+
+{% schema %}
+{
+  "name": "select-line-property",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "lable_title",
+      "label": "Label title",
+      "default": "bean type"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "select",
+      "name": "Select",
+      "settings": [
+        {
+          "type": "text",
+          "id": "select_text",
+          "default": "straight",
+          "label": "Select text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Select-line-property",
+      "blocks": [
+        {
+          "type": "select"
+        },
+        {
+          "type": "select"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
